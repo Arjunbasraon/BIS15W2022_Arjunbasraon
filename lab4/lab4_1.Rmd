@@ -147,7 +147,7 @@ mammals <- readr::read_csv("data/mammal_lifehistories_v2.csv")
 
 2. Are there any NAs? Are you sure? Try taking an average of `max. life` as a test.  
 ```{r}
-
+select(mammal_lifehistories_v2, max..life) <- 'max_life'
 ```
 
 3. What are the names of the columns in the `mammals` data?
