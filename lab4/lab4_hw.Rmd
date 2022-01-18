@@ -1,6 +1,6 @@
 ---
 title: "Lab 4 Homework"
-author: "Please Add Your Name Here"
+author: "Arjun Basraon"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -33,7 +33,22 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 **2. Explore the data. Show the dimensions, column names, classes for each variable, and a statistical summary. Keep these as separate code chunks.**  
 
+```{r}
+names(homerange)
+```
+```{r}
+summary(homerange)
+```
+`````{r}
+glimpse(homerange)
+```
+
+
 **3. Change the class of the variables `taxon` and `order` to factors and display their levels.**  
+
+```{r}
+
+```
 
 **4. What taxa are represented in the `homerange` data frame? Make a new data frame `taxa` that is restricted to taxon, common name, class, order, family, genus, species.**  
 
@@ -45,7 +60,11 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 **8. Do herbivores or carnivores have, on average, a larger `mean.hra.m2`? Remove any NAs from the data.**  
 
-**9. Make a new dataframe `deer` that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer? What is its common name?**  
+**9. Make a new dataframe `deer` that is limited to the mean mass, log10 mass, family, genus, and species of deer in the database. The family for deer is cervidae. Arrange the data in descending order by log10 mass. Which is the largest deer? What is its common name?** 
+
+```{r}
+filter(mammals, mean mass, log10 mass, family, genus, species)
+```
 
 **10. As measured by the data, which snake species has the smallest homerange? Show all of your work, please. Look this species up online and tell me about it!** **Snake is found in taxon column**    
 
