@@ -3,9 +3,9 @@ title: "Midterm 1"
 author: "Arjun Basraon"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
-    toc: no
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -231,54 +231,19 @@ in high hunting intensity, the average mammal species diversity is larger than m
 ```{r}
 near <- gabon%>%
   filter(Distance < 3)%>%
-  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
+  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate) %>%
+  summarize(across(contains("RA_"), mean))
 near
-```
-```{r}
-mean(near$RA_Apes)
-```
-```{r}
-mean(near$RA_Birds)
-```
-```{r}
-mean(near$RA_Elephant)
-```
-```{r}
-mean(near$RA_Monkeys)
-```
-```{r}
-mean(near$RA_Rodent)
-```
-```{r}
-mean(near$RA_Ungulate)
 ```
 
 ```{r}
 far <- gabon%>%
   filter(Distance > 25)%>%
-  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
+  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate) %>%
+  summarize(across(contains("RA_"), mean))
 far
 ```
-```{r}
-distance <- c("near", "far")
-distance
-RA_Apes <- c(0.12, 4.91)
-RA_Apes
-RA_Birds <- c(76.64 ,31.56 )
-RA_Birds
-RA_Elephant <- c(0.145 ,0 )
-RA_Elephant
-RA_Monkeys <- c(17.335 ,54.12 )
-RA_Monkeys
-RA_Rodent <- c(3.895 ,1.29 )
-RA_Rodent
-RA_Ungulate <- c(1.87 ,8.12)
-RA_Ungulate
-```
-```{r}
-comparision <- data.frame(distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
-comparision
-```
+
 There is more abundance of birds, elephants and rodents at distances less than 3 while there is more abundance of apes, monkeys, and ungulates at distances more than 25.
 
 12. (4 points) Based on your interest, do one exploratory analysis on the `gabon` data of your choice. This analysis needs to include a minimum of two functions in `dplyr.`

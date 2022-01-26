@@ -652,59 +652,22 @@ moderate</code></pre>
 </ol>
 <pre class="r"><code>near &lt;- gabon%&gt;%
   filter(Distance &lt; 3)%&gt;%
-  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
+  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate) %&gt;%
+  summarize(across(contains(&quot;RA_&quot;), mean))
 near</code></pre>
-<pre><code>## # A tibble: 2 x 7
-##   Distance RA_Apes RA_Birds RA_Elephant RA_Monkeys RA_Rodent RA_Ungulate
-##      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1     2.7     0        85.0        0.29       9.09      3.74        1.86
-## 2     2.92    0.24     68.2        0         25.6       4.05        1.88</code></pre>
-<pre class="r"><code>mean(near$RA_Apes)</code></pre>
-<pre><code>## [1] 0.12</code></pre>
-<pre class="r"><code>mean(near$RA_Birds)</code></pre>
-<pre><code>## [1] 76.64</code></pre>
-<pre class="r"><code>mean(near$RA_Elephant)</code></pre>
-<pre><code>## [1] 0.145</code></pre>
-<pre class="r"><code>mean(near$RA_Monkeys)</code></pre>
-<pre><code>## [1] 17.335</code></pre>
-<pre class="r"><code>mean(near$RA_Rodent)</code></pre>
-<pre><code>## [1] 3.895</code></pre>
-<pre class="r"><code>mean(near$RA_Ungulate)</code></pre>
-<pre><code>## [1] 1.87</code></pre>
+<pre><code>## # A tibble: 1 x 6
+##   RA_Apes RA_Birds RA_Elephant RA_Monkeys RA_Rodent RA_Ungulate
+##     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1    0.12     76.6       0.145       17.3      3.90        1.87</code></pre>
 <pre class="r"><code>far &lt;- gabon%&gt;%
   filter(Distance &gt; 25)%&gt;%
-  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
+  select (Distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate) %&gt;%
+  summarize(across(contains(&quot;RA_&quot;), mean))
 far</code></pre>
-<pre><code>## # A tibble: 1 x 7
-##   Distance RA_Apes RA_Birds RA_Elephant RA_Monkeys RA_Rodent RA_Ungulate
-##      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1     26.8    4.91     31.6           0       54.1      1.29        8.12</code></pre>
-<pre class="r"><code>distance &lt;- c(&quot;near&quot;, &quot;far&quot;)
-distance</code></pre>
-<pre><code>## [1] &quot;near&quot; &quot;far&quot;</code></pre>
-<pre class="r"><code>RA_Apes &lt;- c(0.12, 4.91)
-RA_Apes</code></pre>
-<pre><code>## [1] 0.12 4.91</code></pre>
-<pre class="r"><code>RA_Birds &lt;- c(76.64 ,31.56 )
-RA_Birds</code></pre>
-<pre><code>## [1] 76.64 31.56</code></pre>
-<pre class="r"><code>RA_Elephant &lt;- c(0.145 ,0 )
-RA_Elephant</code></pre>
-<pre><code>## [1] 0.145 0.000</code></pre>
-<pre class="r"><code>RA_Monkeys &lt;- c(17.335 ,54.12 )
-RA_Monkeys</code></pre>
-<pre><code>## [1] 17.335 54.120</code></pre>
-<pre class="r"><code>RA_Rodent &lt;- c(3.895 ,1.29 )
-RA_Rodent</code></pre>
-<pre><code>## [1] 3.895 1.290</code></pre>
-<pre class="r"><code>RA_Ungulate &lt;- c(1.87 ,8.12)
-RA_Ungulate</code></pre>
-<pre><code>## [1] 1.87 8.12</code></pre>
-<pre class="r"><code>comparision &lt;- data.frame(distance, RA_Apes, RA_Birds, RA_Elephant, RA_Monkeys, RA_Rodent, RA_Ungulate)
-comparision</code></pre>
-<pre><code>##   distance RA_Apes RA_Birds RA_Elephant RA_Monkeys RA_Rodent RA_Ungulate
-## 1     near    0.12    76.64       0.145     17.335     3.895        1.87
-## 2      far    4.91    31.56       0.000     54.120     1.290        8.12</code></pre>
+<pre><code>## # A tibble: 1 x 6
+##   RA_Apes RA_Birds RA_Elephant RA_Monkeys RA_Rodent RA_Ungulate
+##     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+## 1    4.91     31.6           0       54.1      1.29        8.12</code></pre>
 <p>There is more abundance of birds, elephants and rodents at distances less than 3 while there is more abundance of apes, monkeys, and ungulates at distances more than 25.</p>
 <ol start="12" style="list-style-type: decimal">
 <li>(4 points) Based on your interest, do one exploratory analysis on the <code>gabon</code> data of your choice. This analysis needs to include a minimum of two functions in <code>dplyr.</code></li>
