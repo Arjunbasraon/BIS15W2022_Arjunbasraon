@@ -116,9 +116,7 @@ sydneybeaches3 %>%
 9. What was the most polluted beach in 2018?
 
 ```{r}
-sydneybeaches9 <- select(sydneybeaches2, "site", "enterococci_cfu_100ml") %>% 
-  arrange(enterococci_cfu_100ml)
-sydneybeaches9
+sort(sydneybeaches3$mean_enterococci)
 ```
 
 10. Please complete the class project survey at: [BIS 15L Group Project](https://forms.gle/H2j69Z3ZtbLH3efW6)
