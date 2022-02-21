@@ -28,6 +28,13 @@ library("janitor")
 library("skimr")
 ```
 
+```{r}
+library("tidyverse")
+library("naniar")
+library("skimr")
+library("janitor")
+```
+
 ## Review
 When working with outside or "wild" data, dealing with NA's is a fundamental part of the data cleaning or tidying process. Data scientists spend most of their time cleaning and transforming data- including managing NA's. There isn't a single approach that will always work so you need to be careful about using replacements strategies across an entire data set. And, as the data sets become larger NA's can become trickier to deal with.  
 
@@ -39,20 +46,37 @@ For the following, we will use life history data for mammals. The [data](http://
 ```{r}
 life_history <- read_csv("data/mammal_lifehistories_v3.csv") %>% clean_names()
 ```
+```{r}
+life_history
+```
 
 2. Use one or more of the functions from the last lab to determine if there are NA's in the data, how they are represented, and where they are located.
 ```{r}
-
+summary(life_history)
 ```
 
 ```{r}
-
+skim(life_history)
 ```
 
 
 3. Can we use a single approach to deal with NA's in this data set? Given what you learned in the previous lab, how would you manage the NA values?
 ```{r}
+anyNA(life_history)
+```
+```{r}
+life_history %>%
+summarise_all(~(sum(is.na(.))))
+```
 
+```{r}
+tidy_life <- life_history %>% 
+  na_if("-999.00")
+```
+
+```{r}
+tidy_life %>%
+summarise_all(~(sum(is.na(.))))
 ```
 
 ## `naniar`

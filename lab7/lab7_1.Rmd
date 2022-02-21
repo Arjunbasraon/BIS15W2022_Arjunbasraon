@@ -41,6 +41,10 @@ Scientists use different conventions in showing missing data; some use blank spa
 ?msleep
 ```
 
+```{r}
+msleep
+```
+
 ## Are there any NA's?  
 The `summary()` function in base R will tally NA's by variable, but only for categorical/factor, numeric, integer, or logical columns. What about any NA values in the character columns?
 ```{r}
@@ -122,19 +126,29 @@ amniota <- readr::read_csv("data/amniota.csv")
 ```
 
 ```{r}
+amniota
+```
 
+```{r}
+is.na(amniota)
 ```
 
 2. Use one of the tools explained above to summarize NA's in the data.
-```{r}
 
+```{r}
+any_na(amniota)
+```
+
+```{r}
+amniota %>%
+ summarise_all(~(sum(is.na(.))))
 ```
 
 
 3. What's going on here? Try using the `hist` function on one or more of the continuous variables.
 
 ```{r}
-
+hist(amniota$order)
 ```
 
 4. Given that we know that the output of #2 is wrong, what do you think is the best approach for dealing with NA's in the `amniote` data?  
@@ -193,34 +207,54 @@ For the following examples, we will use the `life_history` data for mammals. The
 **S. K. Morgan Ernest. 2003. Life history characteristics of placental non-volant mammals. Ecology 84:3402.**  
 
 1. Load the mammals life history data v2. Do you see any NA's?  
-```{r}
 
+```{r}
+getwd()
+```
+
+```{r}
+mammals_life_v2 <- readr::read_csv("data/mammal_lifehistories_v2.csv")
+mammals_life_v2
+```
+```{r}
+anyNA(mammals_life_v2)
 ```
 
 
 2. Explore the data using any method that you prefer. `skimr` provides a nice output with histograms for numeric variables.  
 ```{r}
-
+summary(mammals_life_v2)
 ```
 
+```{r}
+skim(mammals_life_v2)
+```
 
 3. Replace the entries that represent NA's in the data using `na_if()`. Double check your work.
 ```{r}
-
+tidymammals <- mammals_life_v2 %>%
+  na_if("-999")
+tidymammals
 ```
 
 ```{r}
-
+anyNA(tidymammals)
 ```
 
 ```{r}
-
+tidymammals %>%
+summarise_all(~(sum(is.na(.))))
 ```
 
 
 4. In which variable are the most NAs in the data frame?
 ```{r}
-
+tidymammals %>% 
+  purrr::map_df(~ sum(is.na(.))) %>% 
+  pivot_longer(everything(),
+    names_to= "variables",
+    values_to = "num_nas") %>% 
+  arrange(desc(num_nas))
 ```
 
 
