@@ -402,7 +402,7 @@ ggplot(aes(x=year, y=life_expectancy, group=year, color=life_expectancy))+
 
 ![](midterm_2_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
-
+Kuwait experienced massive economic progress due to the development of the oil industry in the 1930s which brought wealth and improved life standards.
 
 ## Population Growth
 6. (3 points) Which 5 countries have had the highest population growth over the past 100 years (1920-2020)?  
