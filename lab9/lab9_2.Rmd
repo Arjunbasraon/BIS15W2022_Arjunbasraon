@@ -60,7 +60,7 @@ penguins %>% count(species)
 ```{r}
 penguins %>% 
   count(species) %>% 
-  ggplot(aes(x=species, y=n))+
+  ggplot(aes(x=species, y=n ))+
   geom_col()
 ```
 
