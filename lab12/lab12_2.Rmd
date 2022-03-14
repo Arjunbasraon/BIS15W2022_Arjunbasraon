@@ -24,9 +24,9 @@ If you completed part 1 of today's lab then you should have the following packag
 
 `devtools` and `ggmap`
 ```{r}
-#install.packages("devtools")
+install.packages("devtools")
 library(devtools)
-#devtools::install_github("dkahle/ggmap")
+devtools::install_github("dkahle/ggmap")
 ```
 
 ## Load the libraries
@@ -41,9 +41,13 @@ library(janitor)
 library(ggmap)
 ```
 
+```{r}
+install.packages("albersusa")
+```
+
 Let's load our processed data from the first part of the lab.
 ```{r}
-spiders <- read_csv(here("lab12", "data", "spiders_with_locs.csv")) %>% clean_names()
+spiders <- read_csv(here("lab12", "left_spider.csv")) %>% clean_names()
 ```
 
 There is an error in one of the coordinates that we will fix here.
