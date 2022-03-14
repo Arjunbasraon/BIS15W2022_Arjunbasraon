@@ -23,6 +23,7 @@ library(tidyverse)
 library(janitor)
 library(here)
 library(naniar)
+library(dplyr)
 ``` 
 
 ## Desert Ecology
@@ -39,67 +40,150 @@ deserts
 ```{r}
 is.na(deserts)
 ```
-
 ```{r}
-deserts %>% 
-  pivot_longer (names_to = "genus", 
-               values_to = "year")
-
+summary(deserts)
 ```
 
 2. How many genera and species are represented in the data? What are the total number of observations? Which species is most/ least frequently sampled in the study?
 
 ```{r}
 deserts %>%
-  (genus, species)
+  count(genus) %>%
+  arrange(desc(n))
+```
+
+```{r}
+#n_unique(deserts$genus)
+```
+
+```{r}
+deserts %>%
+  count(species) %>%
+  arrange(desc(n))
+```
+
+```{r}
+#n_unique(deserts$species)
 ```
 
 3. What is the proportion of taxa included in this study? Show a table and plot that reflects this count.
 
 ```{r}
+deserts %>%
+  count(taxa) %>%
+  arrange(desc(n))
+```
 
+```{r}
+deserts %>% 
+  ggplot(aes(x=taxa, fill=taxa))+geom_bar()+
+  labs(title = "proportion of taxa",
+       x = "taxa",
+       y = NULL) +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 4. For the taxa included in the study, use the fill option to show the proportion of individuals sampled by `plot_type.`
 
 ```{r}
+deserts %>% 
+  ggplot(aes(x=taxa, fill=plot_type))+geom_bar()+
+  labs(title = "proportion of taxa",
+       x = "taxa",
+       y = NULL) +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5)) 
+```
 
+```{r}
+deserts %>% 
+  ggplot(aes(x=taxa, fill=plot_type))+geom_bar()+
+  labs(title = "proportion of taxa (log10)",
+       x = "taxa",
+       y = NULL) +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5)) + scale_y_log10()
 ```
 
 5. What is the range of weight for each species included in the study? Remove any observations of weight that are NA so they do not show up in the plot.
 
 ```{r}
-
+deserts %>%
+  na.omit(deserts$weight) %>%
+  group_by(species) %>%
+  summarise(min(weight), max(weight)) 
 ```
 
 6. Add another layer to your answer from #4 using `geom_point` to get an idea of how many measurements were taken for each species.
 
 ```{r}
-
+deserts %>% 
+  ggplot(aes(x=taxa, y=species, fill(plot_type)))+ geom_point(na.rm=T)+ 
+  labs(title = "taxa and species",
+       x = "taxa",
+       y = "species") +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5)) 
 ```
 
 7. [Dipodomys merriami](https://en.wikipedia.org/wiki/Merriam's_kangaroo_rat) is the most frequently sampled animal in the study. How have the number of observations of this species changed over the years included in the study?
 
 ```{r}
-
+merriami <- deserts %>%
+  filter(species == "merriami") %>%
+  #group_by(year) %>%
+  count(year)
+merriami
 ```
+population has increased
+
+
 
 8. What is the relationship between `weight` and `hindfoot` length? Consider whether or not over plotting is an issue.
 
 ```{r}
-
+deserts %>% 
+  ggplot(aes(x=weight, y=hindfoot_length))+ geom_point(na.rm=T)+ geom_smooth(method=lm, se=F) +
+  labs(title = "weight vs hindfoot",
+       x = "weight",
+       y = "hindfoot") +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 9. Which two species have, on average, the highest weight? Once you have identified them, make a new column that is a ratio of `weight` to `hindfoot_length`. Make a plot that shows the range of this new ratio and fill by sex.
 
 ```{r}
+deserts %>%
+  na.omit(deserts$weight) %>%
+  select(species, weight) %>%
+  group_by(species) %>%
+  summarise(mean(weight))
+```
 
+```{r}
+ratioframe <- deserts %>%
+  na.omit(deserts$weight) %>%
+  na.omit(deserts$hindfoot_length) %>%
+  group_by(species) %>%
+  summarise(mean(weight)/mean(hindfoot_length))
+ratioframe
+```
+
+```{r}
+#ratioframe %>% 
+  #ggplot(aes( x=species, y=mean(weight)/mean(hindfoot_length)))+geom_bar()+
+  #labs(title = "wt/hind.length",
+   #    x = "species",
+    #   y = "wt/hind.length") +
+#  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
 ```
 
 10. Make one plot of your choice! Make sure to include at least two of the aesthetics options you have learned.
 
 ```{r}
-
+deserts %>%
+  ggplot(aes(x=species, fill=sex))+geom_bar()+
+  labs(title = "species and sex",
+       x = "species",
+       y = NULL) +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5)) +coord_flip()
 ```
 
 ## Push your final code to GitHub!
