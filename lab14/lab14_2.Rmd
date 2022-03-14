@@ -275,6 +275,6 @@ ggplot(aes(
   color = family
   )) +
   geom_text_wordcloud() +
-  scale_size_area(max_size = 25) +
+  scale_size_area(max_size = 15) +
   theme_minimal()
 ```
