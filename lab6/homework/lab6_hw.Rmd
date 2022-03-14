@@ -1,12 +1,12 @@
 ---
 title: "lab6_hw"
 author: "Arjun basraon"
-date: "`r Sys.Date(2/8/22)`"
+date: "`r Sys.Date()`"
 output:
   html_document: 
     theme: spacelab
     keep_md: yes
----
+—
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
