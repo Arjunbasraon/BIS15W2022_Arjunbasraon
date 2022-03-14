@@ -11,7 +11,7 @@
 
 <meta name="author" content="Please Add Your Name Here" />
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-03-14" />
 
 <title>Lab 8 Homework</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 <h1 class="title toc-ignore">Lab 8 Homework</h1>
 <h4 class="author">Please Add Your Name Here</h4>
-<h4 class="date">2022-02-17</h4>
+<h4 class="date">2022-03-14</h4>
 
 </div>
 
@@ -397,16 +397,23 @@ sydneybeaches2</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>What was the most polluted beach in 2018?</li>
 </ol>
-<pre class="r"><code>sort(sydneybeaches3$mean_enterococci)</code></pre>
-<pre><code>##  [1]   7.934426   8.245614   8.262295   8.824561   9.226415   9.275862
-##  [7]  10.677966  11.075472  11.288136  11.590164  13.180328  13.655738
-## [13]  13.830189  14.333333  14.526316  14.924528  16.698113  16.786885
-## [19]  17.490566  18.245902  19.355932  19.471698  20.377049  20.741935
-## [25]  24.772727  25.491228  26.593220  26.758621  29.689655  31.237288
-## [31]  32.224138  36.192982  39.016949  39.344828  39.584906  39.672414
-## [37]  40.333333  40.622642  46.918033  47.137931  47.263158  49.758065
-## [43]  50.258621  52.615385  54.490566  56.982456  59.322034  61.322034
-## [49]  66.877193  91.015873  96.388889 101.413793 121.534483</code></pre>
+<pre class="r"><code>sydneybeaches3 %&gt;%
+  arrange(desc(mean_enterococci))</code></pre>
+<pre><code>## # A tibble: 66 x 3
+## # Groups:   year [6]
+##    year  site                    mean_enterococci
+##    &lt;chr&gt; &lt;chr&gt;                              &lt;dbl&gt;
+##  1 2013  Little Bay Beach                   122. 
+##  2 2013  Malabar Beach                      101. 
+##  3 2013  South Maroubra Rockpool             96.4
+##  4 2016  Malabar Beach                       91.0
+##  5 2015  Malabar Beach                       66.9
+##  6 2016  Bronte Beach                        61.3
+##  7 2016  South Maroubra Rockpool             59.3
+##  8 2015  Tamarama Beach                      57.0
+##  9 2014  Malabar Beach                       54.5
+## 10 2014  Coogee Beach                        52.6
+## # ... with 56 more rows</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li>Please complete the class project survey at: <a href="https://forms.gle/H2j69Z3ZtbLH3efW6">BIS 15L Group Project</a></li>
 </ol>
