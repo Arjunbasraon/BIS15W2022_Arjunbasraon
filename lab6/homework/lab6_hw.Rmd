@@ -1,5 +1,5 @@
 ---
-title: "Lab 6 Homework"
+title: "lab6_hw"
 author: "Arjun basraon"
 date: "`r Sys.Date(2/8/22)`"
 output:
@@ -110,14 +110,14 @@ fisheries %>%
   summarize(n=n()) %>%
   arrange(desc(n)) 
 ```
-
+Spain
 
 7. Which country caught the most sardines (_Sardina pilchardus_) between the years 1990-2000?
 
 ```{r}
 fisheries_tidy %>%
   group_by(country) %>%
-  filter(isscaap_taxonomic_group == "Herrings, sardines, anchovies", year == "1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000") %>%
+  filter(asfis_species_name == "Sardina pilchardus") %>%
   summarise(n=n()) %>%
   arrange(desc(n))
 ```
@@ -130,29 +130,29 @@ fisheries %>%
 8. Which five countries caught the most cephalopods between 2008-2012?
 
 ```{r}
-fisheries %>%
-  group_by(asfis_species_name="Squids, cuttlefishes, octopuses", country, catch) %>% 
-  arrange(desc(asfis_species_name), na.rm=T) 
-```
-
-```{r}
-
+fisheries_tidy %>%
+  group_by(country) %>%
+  filter(asfis_species_name == "Sepia officinalis") %>%
+  summarise(n=n()) %>%
+  arrange(desc(n))
 ```
 
 9. Which species had the highest catch total between 2008-2012? (hint: Osteichthyes is not a species)
 ```{r}
 fisheries %>%
-  group_by(country)%>%
+  group_by(country) %>%
   summarize(n=n()) %>%
   arrange(desc(n))
-```
 ```
 
 10. Use the data to do at least one analysis of your choice.
 
 ```{r}
-fisheries %>%
-
+fisheries_tidy %>%
+  group_by(country) %>%
+  filter(asfis_species_name == "Gobiidae") %>%
+  summarise(n=n()) %>%
+  arrange(desc(n))
 ```
 
 ## Push your final code to GitHub!
